@@ -6,17 +6,17 @@
       <div class="table-top">
         <div class="head">
           <span class="logo"><img src="/img/preview/logo.png"></span>
-          <span class="app-name">智趣点读</span>
+          <span class="app-name">{{appInfo.name}}</span>
         </div>
         <div class="app-desc">下载安装视频教程</div>
       </div>
       <div class="table-body">
         <div class="video">
           <div class="video-back">
-            <video controls poster="/img/preview/video-image.png">
+            <video ref="videoElement" controls poster="/img/preview/video-image.png">
               <source src="/video/teach.mp4" type="video/mp4">
             </video>
-          </div> 
+          </div>
         </div>
         <div id="download" class="download">
           <div class="background" @click="install">
@@ -91,8 +91,10 @@
   export default {
     data() {
       return {
+        ispip: false,
         contentLoading: true,
         appInfo: {
+          name:"",
           currentVersion: {
             versionName: "",
             versionCode: "",
@@ -134,6 +136,17 @@
       } else if (ua.match(/qq\/[0-9]/i)) {
         this.isQQ = true;
       }
+      this.$refs.videoElement.addEventListener("play", () => {
+        this.enterfullscreen();
+      });
+      this.$refs.videoElement.addEventListener("enterpictureinpicture", ()=> {
+        this.ispip=true;
+        console.info(this.ispip);
+      });
+      this.$refs.videoElement.addEventListener("leavepictureinpicture", () =>{
+        this.ispip=false;
+        console.info(this.ispip);
+      });
     },
     methods: {
       getAppInfo(shortCode) {
@@ -141,6 +154,7 @@
         this.$http.get(`apps/shortCode/${shortCode}`).then(res => {
           this.contentLoading = false;
           this.appInfo = res.data;
+          this.name=res.data.name;
           document.title = this.appInfo.name;
         }).catch(() => {
           this.contentLoading = false;
@@ -172,6 +186,12 @@
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
+      },
+      enterfullscreen() {
+        //判断是否为画中画
+        if(this.ispip===false) {
+          this.$refs.videoElement.requestFullscreen();
+        }
       },
     },
   };
@@ -482,7 +502,7 @@
     text-transform: none;
     border: none;
   }
-  
+
   .loading-container h1, .passwd form h4 {
     font-weight: 400
   }
