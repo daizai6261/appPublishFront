@@ -91,6 +91,7 @@
   export default {
     data() {
       return {
+        ispip: false,
         contentLoading: true,
         appInfo: {
           name:"",
@@ -138,6 +139,14 @@
       this.$refs.videoElement.addEventListener("play", () => {
         this.enterfullscreen();
       });
+      this.$refs.videoElement.addEventListener("enterpictureinpicture", ()=> {
+        this.ispip=true;
+        console.info(this.ispip);
+      });
+      this.$refs.videoElement.addEventListener("leavepictureinpicture", () =>{
+        this.ispip=false;
+        console.info(this.ispip);
+      });
     },
     methods: {
       getAppInfo(shortCode) {
@@ -179,7 +188,10 @@
         document.body.removeChild(a);
       },
       enterfullscreen() {
-        this.$refs.videoElement.requestFullscreen();
+        //判断是否为画中画
+        if(this.ispip===false) {
+          this.$refs.videoElement.requestFullscreen();
+        }
       },
     },
   };
