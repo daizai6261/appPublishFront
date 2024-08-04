@@ -7,7 +7,7 @@ var vueEnv = {
     serverUrl: "http://127.0.0.1:8060/api/",
   },
   test: {
-    serverUrl: "http://47.122.17.43:8060/api/",
+    serverUrl: "http://39.100.143.137:8060/api/",
   },
   prod: {
     serverUrl: "http://47.92.30.191:8060/api/",
