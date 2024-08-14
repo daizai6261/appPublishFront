@@ -73,9 +73,10 @@
       };
     },
     mounted() {
-      mutations.setBreadcrumbs([{
-        name: "我的应用",
-      }]);
+      mutations.setBreadcrumbs([
+        {name: "我的应用"},
+        {name: "下载统计",path: "/download"},
+      ]);
       this.getAppList();
     },
     methods: {

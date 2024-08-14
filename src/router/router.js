@@ -11,6 +11,7 @@ const routes = [
     children: [
       {path: "/", meta: {title: "首页"}, component: () => import("@/views/appList/AppList")},
       {path: "apps/:id", meta: {title: "应用动态"}, component: () => import("@/views/appDetail/AppVersions")},
+      {path: "/download", meta: {title: "下载统计"}, component: () => import("@/views/appList/DownLoadCount.vue")},
     ],
   },
   {path: "/login", meta: {title: "登录"}, component: () => import("@/views/main/Login")},
