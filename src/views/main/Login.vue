@@ -75,6 +75,8 @@
 
 <style lang="scss" scoped>
   .login {
+    display: flex;
+    text-align: center;
     width: 100%;
     height: 100%;
     background: url('/img/login_bg.jpg') center;
@@ -82,10 +84,7 @@
     position: relative;
 
     &-con {
-      position: absolute;
-      right: 160px;
-      top: 50%;
-      transform: translateY(-60%);
+      margin: auto;
       width: 360px;
     }
 
