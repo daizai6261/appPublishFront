@@ -77,6 +77,7 @@
           xAxis: {
             type: "category",
             data: this.downloadDate,
+
           },
           yAxis: {
             type: "value",
@@ -85,6 +86,16 @@
             {
               data: this.downloadTimes,
               type: "line",
+            },
+          ],
+          dataZoom:[
+            {
+              show: true,
+              showDetail: true,
+              type: "slider",
+              start: 50,
+              end: 100,
+              bottom: 20,
             },
           ],
         };
