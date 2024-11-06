@@ -62,6 +62,7 @@
                 <div class="item-icon" style="margin-left: 10px" @click="download(item.id)">
                   <i class="el-icon-download"/>{{(item.size/1024).toFixed(2)}} MB
                 </div>
+                <i class="el-icon-delete item-icon" style="margin-left: 10px;" @click="dele(item)"/>
               </div>
             </div>
           </el-timeline-item>
@@ -149,6 +150,15 @@
           this.setBreadcrumbs();
         }).catch(() => {
           this.contentLoading = false;
+        });
+      },
+      dele(item) {
+        console.log(item);
+        this.$http.delete(`http://121.41.179.109:8000/delete/${item.appId}`).then(() => {
+          this.$message.success("删除成功");
+          this.$router.push({
+            path: "/",
+          });
         });
       },
       download(filename) {
