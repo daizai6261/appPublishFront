@@ -118,7 +118,7 @@
       getAppList() {
         this.contentLoading = true;
         this.$http
-          .get("apps")
+          .get("http://121.41.179.109:8000/get_all_apps",{skip:11})
           .then((res) => {
             this.appList = res.data;
             this.contentLoading = false;

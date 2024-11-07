@@ -4,12 +4,19 @@ import {toLogin} from "@/router/router";
 import {Notification} from "element-ui";
 
 // axios 配置
-axios.defaults.timeout = 40000;
+axios.defaults.timeout = 400000000;
 axios.defaults.baseURL = window.config.serverUrl;
 // http request 拦截器
+
 axios.interceptors.request.use(
   config => {
-    config.headers["Authorization"] = auth.getToken();
+   
+    if (config.params&& config.params.skip){
+      console.log(auth.getToken());
+    }else{
+      config.headers["Authorization"] = auth.getToken();
+    }
+    
     return config;
   },
   err => {

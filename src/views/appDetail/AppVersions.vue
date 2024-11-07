@@ -153,11 +153,15 @@
         });
       },
       dele(item) {
-        console.log(item);
-        this.$http.delete(`http://121.41.179.109:8000/delete/${item.appId}`).then(() => {
+        this.$http.post("http://121.41.179.109:8000/delete" ,{
+          app_id: item.appId,
+          create_time: item.createTime,
+        }).then(() => {
           this.$message.success("删除成功");
-          this.$router.push({
-            path: "/",
+          this.$http.get(`apps/${this.id}`).then(res => {
+            this.contentLoading = false;
+            this.appInfo = res.data;
+            this.setBreadcrumbs();
           });
         });
       },
