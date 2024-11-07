@@ -81,6 +81,13 @@
         <div class="we-chat-tip-arrow"/>
         请点击右上角<br>选择"在浏览器打开"
       </div>
+          <el-dialog
+        title="提示"
+        :visible.sync="isAppleDevice"
+        width="30%"
+    >
+      <span>当前只支持安卓设备。</span>
+    </el-dialog>
     </div>
   </div>
 </template>
@@ -111,6 +118,7 @@
         },
         platform: null,
         isWeChat: null,
+        isAppleDevice: false,
         isQQ: null,
         tipShow: false,
         installText: "安卓下载",
@@ -124,7 +132,9 @@
     },
     mounted() {
       this.getAppInfo(this.$route.params.shortCode);
+
       if (/(iphone|ipad|ipod|ios)/i.test(ua)) {
+        this.isAppleDevice=true;
         this.platform = "ios";
       } else if (/(android)/i.test(ua)) {
         this.platform = "android";

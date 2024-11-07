@@ -21,7 +21,7 @@
     mounted() {
       const userAgent = navigator.userAgent.toLowerCase();
       // 检测是否为苹果设备
-      if (! /iphone|ipod|ipad/.test(userAgent)) {
+      if (/iphone|ipod|ipad/.test(userAgent)) {
         this.isAppleDevice = true;
       }
     },
