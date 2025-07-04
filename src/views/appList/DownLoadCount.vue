@@ -120,7 +120,8 @@
         this.$http
           .get("apps")
           .then((res) => {
-            this.appList = res.data;
+            // 按下载量降序排序
+            this.appList = res.data.sort((a, b) => b.downloadCount - a.downloadCount);
             this.contentLoading = false;
           })
           .catch(() => {
