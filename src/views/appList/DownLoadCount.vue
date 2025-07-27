@@ -12,7 +12,7 @@
           :picker-options="pickerOptions"/>
     </div>
     <div id="charts" class="charts"/>
-   
+
     <div>
       <el-table :data="appList" class="table" stripe>
         <el-table-column prop="name" label="APP" width="480">
@@ -23,7 +23,7 @@
             </div>
           </template>
         </el-table-column>
-        <el-table-column prop="downloadCount" label="今日下载量"/>
+        <el-table-column prop="downloadCount" label="下载量"/>
       </el-table>
     </div>
   </div>
@@ -62,12 +62,12 @@
                 this.downloadDate.push(filteredData[i].date);
                 this.downloadTimes.push(filteredData[i].downloadCount);
               }
-              
+
               this.initDiv();
               // this.initDiv();
             });
 
-            
+
           },
           disabledDate(time) {
             return time.getTime() < new Date("2024-8-18");
@@ -110,10 +110,13 @@
     },
     methods: {
       get_one_data(time) {
-        this.$http.get("http://121.41.179.109:8000/downloads", {target_date:time}).then(res => {
+        console.log("点击日期:", time);
+        this.$http.get(`apps/downloads/${time}`).then(res => {
           this.appList = res.data;
-          this.appList.sort((a, b) => b.downloadCount - a.downloadCount); 
-        });
+          this.appList.sort((a, b) => b.downloadCount - a.downloadCount);
+        }).catch(err => {
+          console.log("获取指定日期下载数据失败:", err);
+          this.$message.error("获取数据失败，请重试");});
       },
       getAppList() {
         this.contentLoading = true;
@@ -133,7 +136,7 @@
           for (let i = 0; i < res.data.length; i++) {
             this.downloadDate.push(res.data[i].date);
             this.downloadTimes.push(res.data[i].downloadCount);
-          }     
+          }
           this.initDiv();
         });
       },
